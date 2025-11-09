@@ -39,19 +39,22 @@
     .shapes .s4{ width:120px;height:120px;background:#FFE6A7; bottom:6%; right:12%; animation:float 9s -1.5s ease-in-out infinite;}
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 
-    .card{
-      position:relative;
-      z-index:1;                       
-      width:min(92vw, 520px);
-      background:var(--card);
-      border:4px solid var(--border);
-      border-radius:28px;
-      padding: 70px 24px 28px;          
-      text-align:center;
-      box-shadow:0 20px 40px rgba(0,0,0,.08);
-      animation:pop-in .45s cubic-bezier(.2,.8,.2,1) both,
+    .card 
+    {
+      position: relative;
+      z-index: 1;
+      width: min(92vw, 520px);
+      background: var(--card);
+      border: 4px solid var(--border);
+      border-radius: 28px;
+      padding: 70px 24px 28px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, .08);
+      animation: pop-in .45s cubic-bezier(.2, .8, .2, 1) both,
                 shadowPulse 6s ease-in-out .6s infinite;
+      overflow: visible; /* 👈 allow the logo to "stick out" */
     }
+
     @keyframes pop-in{
       from{opacity:0; transform:translateY(24px) scale(.98);}
       to  {opacity:1; transform:translateY(0)   scale(1);}
@@ -61,23 +64,32 @@
       50%    {box-shadow:0 26px 56px rgba(0,0,0,.12);}
     }
 
-    .logo-badge{
-      position:absolute;
-      top:-60px; left:50%; transform:translateX(-50%);
-      width:clamp(220px, 55vw, 440px);
-      height:auto;
-      border-radius:14px;
-      background:#0000;
-      border:8px solid #0000;
-      overflow:visible;
+    .logo-badge {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      
+      /* Consistent size (desktop + tablet + most phones) */
+      width: 380px;
+      height: auto;
+      max-width: none; 
+      min-width: 380px; 
+      pointer-events: none;
+      overflow: visible;
     }
-    .logo-badge img{
-      width:100%; height:auto; object-fit:contain; display:block;
+
+    .logo-badge img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
       filter:
         drop-shadow(0 10px 16px rgba(0,0,0,.28))
         drop-shadow(0 2px 2px rgba(0,0,0,.18));
-      animation:logoFloat 7s ease-in-out infinite;
+      animation: logoFloat 7s ease-in-out infinite;
     }
+    
     @keyframes logoFloat{
       0%,100%{transform:translateY(0) rotate(0deg)}
       50%    {transform:translateY(-6px) rotate(-0.4deg)}
@@ -159,4 +171,11 @@
     @media (prefers-reduced-motion: reduce){
       .shapes .s1,.shapes .s2,.shapes .s3,.shapes .s4,
       .logo-badge img,.card{animation:none}
+    }
+
+    @media (max-width: 380px) {
+      .logo-badge {
+        width: 90vw;   /* scales down a bit for small phones */
+        min-width: unset;
+      }
     }
